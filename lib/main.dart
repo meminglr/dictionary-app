@@ -30,7 +30,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool isSearching = false;
-  String searchWord = "0";
+  String searchWord = "";
 
   Future<List<Words>> showAllWords() async {
     var wordList = <Words>[];
@@ -49,7 +49,34 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Dictionary App ')),
+      appBar: AppBar(
+        title: isSearching
+            ? TextField(
+                onChanged: (value) {
+                  searchWord = value;
+                  print(searchWord);
+                },
+              )
+            : Text('Dictionary App '),
+        actions: [
+          isSearching
+              ? IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isSearching = false;
+                      searchWord = "";
+                    });
+                  },
+                  icon: Icon(Icons.close))
+              : IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isSearching = true;
+                    });
+                  },
+                  icon: Icon(Icons.search))
+        ],
+      ),
       body: Center(
         child: FutureBuilder(
             future: showAllWords(),
@@ -58,27 +85,32 @@ class _HomePageState extends State<HomePage> {
                 var wordList = snapshot.data;
                 return ListView.builder(
                   itemCount: wordList?.length,
-                  itemBuilder: (context, index) => GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                            builder: (context) => DetailPage(),
-                          ));
-                    },
-                    child: SizedBox(
-                      height: 75,
-                      child: Card.filled(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(wordList![index].english),
-                            Text(wordList[index].turkish)
-                          ],
+                  itemBuilder: (context, index) {
+                    var kelime = wordList![index];
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => DetailPage(
+                                word: kelime,
+                              ),
+                            ));
+                      },
+                      child: SizedBox(
+                        height: 75,
+                        child: Card.filled(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(wordList![index].english),
+                              Text(wordList[index].turkish)
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ),
+                    );
+                  },
                 );
               } else {
                 return Center();

@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
+import 'package:dictionary/words.dart';
+
 class DetailPage extends StatefulWidget {
-  const DetailPage({super.key});
+  Words word;
+  DetailPage({
+    super.key,
+    required this.word,
+  });
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -11,8 +17,15 @@ class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Detail Page"),
+      appBar: AppBar(title: Text("Detail Page")),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text("${widget.word.english}"),
+            Text("${widget.word.turkish}")
+          ],
+        ),
       ),
     );
   }
