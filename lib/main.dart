@@ -97,15 +97,24 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ));
                       },
-                      child: SizedBox(
-                        height: 75,
-                        child: Card.filled(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(wordList![index].english),
-                              Text(wordList[index].turkish)
-                            ],
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: SizedBox(
+                          height: 100,
+                          child: Card.filled(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
+                                  wordList![index].english,
+                                  style: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(wordList[index].turkish,
+                                    style: TextStyle(fontSize: 25)),
+                              ],
+                            ),
                           ),
                         ),
                       ),

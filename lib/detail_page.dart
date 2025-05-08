@@ -20,10 +20,16 @@ class _DetailPageState extends State<DetailPage> {
       appBar: AppBar(title: Text("Detail Page")),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("${widget.word.english}"),
-            Text("${widget.word.turkish}")
+            Text(
+              "${widget.word.english}",
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              "${widget.word.turkish}",
+              style: TextStyle(fontSize: 25),
+            )
           ],
         ),
       ),
