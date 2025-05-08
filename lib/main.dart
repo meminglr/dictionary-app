@@ -1,0 +1,90 @@
+import 'package:dictionary/detail_page.dart';
+import 'package:dictionary/words.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MainApp());
+}
+
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatefulWidget {
+  const HomePage({
+    super.key,
+  });
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  bool isSearching = false;
+  String searchWord = "0";
+
+  Future<List<Words>> showAllWords() async {
+    var wordList = <Words>[];
+
+    Words w1 = Words(wordId: 1, english: "Water", turkish: "Su");
+    Words w2 = Words(wordId: 2, english: "Computer", turkish: "Bilgisayar");
+    Words w3 = Words(wordId: 3, english: "Bag", turkish: "Çanta");
+
+    wordList.add(w1);
+    wordList.add(w2);
+    wordList.add(w3);
+
+    return wordList;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Dictionary App ')),
+      body: Center(
+        child: FutureBuilder(
+            future: showAllWords(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                var wordList = snapshot.data;
+                return ListView.builder(
+                  itemCount: wordList?.length,
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (context) => DetailPage(),
+                          ));
+                    },
+                    child: SizedBox(
+                      height: 75,
+                      child: Card.filled(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(wordList![index].english),
+                            Text(wordList[index].turkish)
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              } else {
+                return Center();
+              }
+            }),
+      ),
+    );
+  }
+}
