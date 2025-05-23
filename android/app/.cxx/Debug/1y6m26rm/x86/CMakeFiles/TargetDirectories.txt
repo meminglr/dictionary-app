@@ -1,0 +1,2 @@
+D:/src/FlutterUdemyProjects/dictionary/android/app/.cxx/Debug/1y6m26rm/x86/CMakeFiles/edit_cache.dir
+D:/src/FlutterUdemyProjects/dictionary/android/app/.cxx/Debug/1y6m26rm/x86/CMakeFiles/rebuild_cache.dir

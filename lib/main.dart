@@ -86,28 +86,28 @@ class _HomePageState extends State<HomePage> {
                 return ListView.builder(
                   itemCount: wordList?.length,
                   itemBuilder: (context, index) {
-                    var kelime = wordList![index];
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                              builder: (context) => DetailPage(
-                                word: kelime,
-                              ),
-                            ));
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: SizedBox(
-                          height: 100,
-                          child: Card.filled(
+                    var word = wordList![index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: SizedBox(
+                        height: 100,
+                        child: Card.filled(
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                    builder: (context) => DetailPage(
+                                      word: word,
+                                    ),
+                                  ));
+                            },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Text(
                                   wordList![index].english,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 25,
                                       fontWeight: FontWeight.bold),
                                 ),
