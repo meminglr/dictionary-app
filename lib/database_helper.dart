@@ -3,26 +3,26 @@ import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-class VeritabaniYardimcisi {
-  static final String veritabaniAdi = "sozluk.sqlite";
+class DatabaseHelper {
+  static final String databaseName = "dictionary.sqlite";
 
-  static Future<Database> veritabaniErisim() async {
-    String veritabaniYolu = join(await getDatabasesPath(), veritabaniAdi);
+  static Future<Database> accesToDatabase() async {
+    String databasePath = join(await getDatabasesPath(), databaseName);
 
-    if (await databaseExists(veritabaniYolu)) {
+    if (await databaseExists(databasePath)) {
       //Veritabanı var mı yok mu kontrolü
       print("Veri tabanı zaten var.Kopyalamaya gerek yok");
     } else {
       //assetten veritabanının alınması
-      ByteData data = await rootBundle.load("database/$veritabaniAdi");
+      ByteData data = await rootBundle.load("database/$databaseName");
       //Veritabanının kopyalama için byte dönüşümü
       List<int> bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
       //Veritabanının kopyalanması.
-      await File(veritabaniYolu).writeAsBytes(bytes, flush: true);
+      await File(databasePath).writeAsBytes(bytes, flush: true);
       print("Veri tabanı kopyalandı");
     }
     //Veritabanını açıyoruz.
-    return openDatabase(veritabaniYolu);
+    return openDatabase(databasePath);
   }
 }
