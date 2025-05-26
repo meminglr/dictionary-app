@@ -16,7 +16,7 @@ A simple and colorful Flutter dictionary app to help you learn basic English-Tur
 ## 📱 Screenshot
 
 <p float="left">
-  <img src="screenshot.png" width="200" />
+  <img src="screenshot.jpg" width="200" />
     &nbsp;
   <img src="gif.gif" width="200" />
 </p>
