@@ -9,7 +9,7 @@ A simple and colorful Flutter dictionary app to help you learn basic English-Tur
 - 📚 English to Turkish word translations  
 - 🎨 Vibrant and intuitive UI design  
 - 🧠 Easy to use and understand  
-- 🔍 Search functionality (future plan)
+- 🔍 Search functionality
 
 ---
 
