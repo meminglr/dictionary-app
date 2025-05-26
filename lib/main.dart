@@ -40,34 +40,86 @@ class _HomePageState extends State<HomePage> {
   bool isSearching = false;
   String searchWord = "";
 
-  // Future<List<Words>> showAllWords() async {
-  //   var wordList = await WordsDao().allWords();
-  //   return wordList;
-  // }
-
-  // Future<List<Words>> searchedWords(String searchWord) async {
-  //   var searchedWordList = await WordsDao().searchWord(searchWord);
-  //   return searchedWordList;
-  // }
-
   Future<List<Words>> showAllWords() async {
-    var wordList = <Words>[];
-
-    Words w1 = Words(wordId: 1, english: "Water", turkish: "Su");
-    Words w2 = Words(wordId: 2, english: "Computer", turkish: "Bilgisayar");
-    Words w3 = Words(wordId: 3, english: "Bag", turkish: "Çanta");
-
-    wordList.add(w1);
-    wordList.add(w2);
-    wordList.add(w3);
-
+    var wordList = await WordsDao().allWords();
     return wordList;
   }
+
+  Future<List<Words>> searchedWords(String searchWord) async {
+    var searchedWordList = await WordsDao().searchWord(searchWord);
+    return searchedWordList;
+  }
+
+  // Future<List<Words>> showAllWords() async {
+  //   var wordList = <Words>[
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //     Words(wordId: 1, english: "Water", turkish: "Su"),
+  //   ];
+
+  //   Words w1 = Words(wordId: 1, english: "Water", turkish: "Su");
+  //   Words w2 = Words(wordId: 2, english: "Computer", turkish: "Bilgisayar");
+  //   Words w3 = Words(wordId: 3, english: "Bag", turkish: "Çanta");
+
+  //   wordList.add(w1);
+  //   wordList.add(w2);
+  //   wordList.add(w3);
+
+  //   return wordList;
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        scrolledUnderElevation: 0,
         title: isSearching
             ? TextField(
                 onChanged: (value) {
@@ -109,9 +161,9 @@ class _HomePageState extends State<HomePage> {
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
             ),
             FutureBuilder(
-                // future:
-                // isSearching ? searchedWords(searchWord) : showAllWords(),
-                future: showAllWords(),
+                future:
+                    isSearching ? searchedWords(searchWord) : showAllWords(),
+                // future: showAllWords(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     var wordList = snapshot.data;
@@ -120,7 +172,9 @@ class _HomePageState extends State<HomePage> {
                         itemCount: wordList?.length,
                         itemBuilder: (context, index) {
                           var word = wordList![index];
-                          var cardColor = CardColors().getRandomMaterialColor();
+                          final cardColor =
+                              CardColors().getRandomMaterialColor(index % 18);
+                          final textColor = cardColor[100];
 
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: 5),
@@ -134,6 +188,8 @@ class _HomePageState extends State<HomePage> {
                                         context,
                                         CupertinoPageRoute(
                                           builder: (context) => DetailPage(
+                                            cardColor: cardColor,
+                                            textColor: textColor,
                                             word: word,
                                           ),
                                         ));
@@ -145,14 +201,13 @@ class _HomePageState extends State<HomePage> {
                                       Text(
                                         wordList![index].english,
                                         style: TextStyle(
-                                            color: cardColor[100],
+                                            color: textColor,
                                             fontSize: 25,
                                             fontWeight: FontWeight.bold),
                                       ),
                                       Text(wordList[index].turkish,
                                           style: TextStyle(
-                                              color: cardColor[100],
-                                              fontSize: 25)),
+                                              color: textColor, fontSize: 25)),
                                     ],
                                   ),
                                 ),

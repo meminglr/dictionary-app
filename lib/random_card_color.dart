@@ -24,8 +24,7 @@ class CardColors {
     Colors.blueGrey,
   ];
 
-  MaterialColor getRandomMaterialColor() {
-    final random = Random();
-    return materialColors[random.nextInt(materialColors.length)];
+  MaterialColor getRandomMaterialColor(int index) {
+    return materialColors[index];
   }
 }
